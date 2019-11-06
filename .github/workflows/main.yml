@@ -1,0 +1,25 @@
+name: Flutter Automate workflow
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: cirrusci/flutter:stable
+
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 1
+    - name: Check all thing done
+      run: flutter doctor
+    - name: Install dependencies
+      run: sudo flutter pub get
+      working-directory: ./app
+#  test:
+#    needs: [build]
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Run All Tests
+#      run: flutter test
