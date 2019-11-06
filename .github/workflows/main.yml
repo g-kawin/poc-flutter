@@ -1,12 +1,10 @@
-name: Run Tests
+name: Flutter Automate workflow
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image:  google/dart:latest
 
     steps:
     - uses: actions/checkout@v1
@@ -19,7 +17,13 @@ jobs:
       with:
         channel: 'stable'
 
+    - name: Check all thing done
+      run: flutter doctor
     - name: Install dependencies
       run: flutter pub get
-    - name: Run tests
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run All Tests
       run: flutter test
